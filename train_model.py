@@ -84,7 +84,7 @@ for col in cat_features:
             slice_value = slicevalue,
             categorical_features = cat_features,
             label = "salary",
-            enconder = enconder,
+            encoder = encoder,
             lb = lb, 
             model = model,
         )

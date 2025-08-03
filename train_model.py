@@ -38,7 +38,7 @@ cat_features = [
 X_train, y_train, encoder, lb = process_data(
     train,
     categorial_features = cat_features,
-    label = "salary"
+    label = "salary",
     training = True
     )
 
@@ -66,7 +66,7 @@ model = load_model(
 ) 
 
 # TODO: use the inference function to run the model inferences on the test dataset.
-preds = train_model(
+preds = inference(model, X_test)
 
 # Calculate and print the metrics
 p, r, fb = compute_model_metrics(y_test, preds)

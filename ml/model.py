@@ -133,7 +133,7 @@ def performance_on_categorical_slice(
         categorial_features = categorial_features,
         label = label,
         training = False,
-        encoder = encoder
+        encoder = enconder, 
         lb = lb
     )
     

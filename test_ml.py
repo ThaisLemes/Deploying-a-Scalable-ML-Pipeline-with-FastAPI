@@ -1,9 +1,10 @@
 import pytest
 import numpy as np 
 from sklearn.ensemble import RandomForestClassifier 
-from ml.model import train_model, compute_model_metrics, inference, predict
+from ml.model import train_model, inference
 from train_model import X_train, y_train, X_test, y_test
-from ml.data import apply_label
+
+
 
 
 def test_model():
@@ -19,29 +20,31 @@ def test_model():
 
 def test_expected_type():
     """
-    If any ML functions return the expected type of result.
+    Test if the ML Function returns predictions with the same shape as the input lables.
     """
-    final_result = predict(X_test)
-    assert isinstance(final_result, np.ndarray), (
-        f" Expected np.ndarray, but returned {type(result).__name__}"
+    X = np.random.rand(100,5)
+    y = np.random.randint(2, size=100)
+
+    model = train_model(X,y)
+
+    y_preds = inference(model,X)
+    
+    
+    assert y.shape == y_preds.shape, (
+        f" Expected  to be {y.shape}, but returned {y_preds.shape}"
     )
     
 
 
-def test_expected_size():
+def test_consistent_feature():
     """
-    If the training and test datasets have the expected size.
+    Ensure that the training and test datasets have the same number of columns.
     """
-    expected = {
-        "X_train" : (1000, 20),
-        "y_train" : (1000, ),
-        "X_test" : (200, 20),
-        "y_test" : (200,),
+    train_col = X_train.shape[1]
+    test_col = X_test.shape[1]
 
-        for i, expected in expected.items():
-            data = locals()[i]
-        assert data.shape == expected, (
-            f"{i} should have shape {expected}, but returned {data.shape}."
-        )
+    assert train_col == test_col, (
+        f" Feature is not matching: X_train has {train_col} features, but X_test has {test_col}."
+    )
         
-    }
+    
